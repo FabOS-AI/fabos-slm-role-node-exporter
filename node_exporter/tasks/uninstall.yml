@@ -2,9 +2,10 @@
 - name: "Stop node_exporter service"
   ansible.builtin.systemd:
     state: stopped
+    daemon_reload: yes
     name: node_exporter
   register: stop_service_result
-  failed_when: "'Could not find the requested service' not in stop_service_result.msg"
+  failed_when: false
 
 - name: "Remove rule for port 9100"
   ansible.builtin.iptables:
