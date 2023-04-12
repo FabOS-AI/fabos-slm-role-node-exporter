@@ -1,4 +1,18 @@
 ---
+- name: Set Download and binary name (amd64)
+  ansible.builtin.set_fact:
+    cpu-arch: amd64
+  when:
+    - ansible_distribution != 'Debian'
+    - ansible_lsb.id != 'Raspbian'
+
+- name: Set Download and binary name (armv7)
+  ansible.builtin.set_fact:
+    cpu-arch: armv7
+  when:
+    - ansible_distribution == 'Debian'
+    - ansible_lsb.id == 'Raspbian'
+
 - name: "Create '{{ username }}' User"
   ansible.builtin.user:
     name: "{{ username }}"
